@@ -15,6 +15,7 @@
         // document.getElementById("bz_tracking_id_msg").innerText = "현재 bz_tracking_id는"+"1234"+"입니다";
         function send_postback(){
             let esi = document.getElementById('esi').value;
+            let url = document.getElementById('redirect_url').value;
             // console.log(esi);
             
             // 조건문
@@ -23,8 +24,11 @@
             function bzq() {window.bzDataLayer.push(arguments);}
             bzq("init", esi);
             // 액션완료 스크립트
-            window.bzq("track", { action: "bz_action_complete"});
-            // window.bzq("track", { action: "bz_action_complete", redirect_url: "필요시 여기서 리다이렉트 URL 값을 넣어주세요"});
+            if (url == ""){
+                window.bzq("track", { action: "bz_action_complete"});
+            }else{
+                window.bzq("track", { action: "bz_action_complete", redirect_url: url});
+            }
         };
     </script>
 </head>
@@ -32,6 +36,7 @@
     <!-- file:///Users/toyyu/coding/index.html?bz_tracking_id=toy_test -->
     <h1>[JS] 포스트백을 날려보자!</h1>
     <input id="esi" type="text" value="798619727037425">  <!-- 온보딩 시연용 -->
+    <input id="redirect_url" type="text">  <!-- 온보딩 시연용 -->
     <!-- <input id="bz_tracking_id" type="text"> -->
 
 <!--     <input id="esi" type="text" value="799369378906541">    <!-- 내꺼 --> -->
